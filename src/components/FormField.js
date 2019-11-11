@@ -2,15 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Created a component for the form field so that it may take the users input
-// have a placeholder, use built in Update method, and throw and error message if needed
-const FormField = ({ value, placeholder, update, error, label }) => {
-    const onChange = (e) => update(e.target.value);
+const FormField = ({ value, placeholder, update, error, label, name }) => {
     return (
         <div className="container">
             <label>
                 {label}
             </label>
-            <input value={value} placeholder={placeholder} onChange={onChange} type="text" />
+            <input value={value} placeholder={placeholder} name={name} type="text" />
             <div className="error">{error}</div>
         </div>
     );
