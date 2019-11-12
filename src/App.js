@@ -3,7 +3,7 @@ import {hot} from "react-hot-loader";
 import Header from "./components/Header";
 import Form from "./components/Form";
 
-import "./App.css";
+import "./styles/styles.scss";
 
 class App extends Component{
   render(){
