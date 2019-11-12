@@ -21,7 +21,7 @@ const Form = () => {
     }
 
     const removeNote = (name) => {
-        setNotes(stops.filter((stop) => stop.name !== name ))
+        setStops(stops.filter((stop) => stop.name !== name ))
     }
 
     // const { register, handleSubmit, errors } = useForm();
@@ -62,6 +62,7 @@ const Form = () => {
 
           <SubmitBtn buttonText="Add Stop" />
         </form>
+        {/* loop through all of the stops added create a div that displays added info with a button to remove */}
         {stops.map(stop => (
           <div key={stop.name}>
             <h3>{stop.name}</h3>
