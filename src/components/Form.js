@@ -1,21 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 // import FormField from './FormField';
 import SubmitBtn from './SubmitBtn';
 import useForm from 'react-hook-form';
 
+const stopReducer = (state, action) => {
+    switch (action.type) {
+        case 'ADD_STOP':
+            return [
+                ...state,
+                { name: action.name, address: action.address }
+            ]
+        case 'REMOVE_STOP':
+            // return true when the stop name is not equal to the stop name provided
+            return state.filter((stop) => stop.name !== action.name )
+        default:
+            return state
+    }
+}
+
 const Form = () => {
 
-    const [stops, setStops] = useState([])
+    const [stops, dispatch] = useReducer(stopReducer, [])
     const [name, setName] = useState('')
     const [address, setAddress] = useState('')
 
     const addStop = (e) => {
         e.preventDefault()
-        setStops([
-            ...stops,
-            { name, address }
-        ])
+        dispatch({
+            type: 'ADD_STOP',
+            name,
+            address
+        })
+        // setStops([
+        //     ...stops,
+        //     { name, address }
+        // ])
         setName('')
         setAddress('')
     }
@@ -23,7 +43,11 @@ const Form = () => {
     // filters through name to see if it matches and if so, deletes name
     // so that it might not delete another stop name
     const removeStop = (name) => {
-        setStops(stops.filter((stop) => stop.name !== name ))
+        dispatch({
+            type: 'REMOVE_STOP',
+            name
+        })
+        // setStops(stops.filter((stop) => stop.name !== name ))
     }
 
     // const { register, handleSubmit, errors } = useForm();
