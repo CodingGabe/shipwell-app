@@ -20,7 +20,9 @@ const Form = () => {
         setAddress('')
     }
 
-    const removeNote = (name) => {
+    // filters through name to see if it matches and if so, deletes name
+    // so that it might not delete another stop name
+    const removeStop = (name) => {
         setStops(stops.filter((stop) => stop.name !== name ))
     }
 
@@ -67,7 +69,7 @@ const Form = () => {
           <div key={stop.name}>
             <h3>{stop.name}</h3>
             <p>{stop.address}</p>
-            <button onClick={() => removeNote(stop.name)}>Remove Stop</button>
+            <button onClick={() => removeStop(stop.name)}>Remove Stop</button>
           </div>
         ))}
       </div>
