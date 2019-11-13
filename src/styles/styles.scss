@@ -1,10 +1,70 @@
 $dark: #101010;
+$white: #fff;
+$shipwell_primary: #11A3DD;
+$container: 30rem;
+$bold: 700;
+$border-radius: 5px;
 
 * {
-    color: $dark;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    background: $dark;
 }
 
 .App {
-    margin: 1rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 5rem auto;
     font-family: Arial, Helvetica, sans-serif;
+
+    .container {
+        margin: 0 auto;
+        max-width: $container;
+        width: 300px;
+        color: $white;
+        h1 {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        label {
+            margin-bottom: .5rem;
+        }
+        input {
+            margin-bottom: 1.5rem;
+            padding: .5rem;
+            border-radius: $border-radius;
+            border-color: $white;
+            &::placeholder {
+                color: #999;
+            }
+        }
+    }
+  }
+
+  .shipwell-btn {
+      display: inline-block;
+      background: $shipwell_primary;
+      border: none;
+      padding: .5rem;
+      color: $white;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: $bold;
+      border-radius: $border-radius;
+      transition: all .2s ease-in;
+      &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 3px 20px rgba(0,0,0,.27);
+          cursor: pointer;
+      }
   }
