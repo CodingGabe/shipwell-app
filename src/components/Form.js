@@ -7,38 +7,40 @@ import axios from 'axios';
 
 import stopReducer from '../reducers/stops';
 
-const Form = ({ clearForm = true }) => {
+const Form = () => {
 
     const [stops, dispatch] = useReducer(stopReducer, [])
     const [name, setName] = useState('')
     const [address, setAddress] = useState('')
-    const [errors, setErrors] = useState({ name: '', address: '' });
-    const [showErrors, setShowErrors] = useState(false);
+    // const [errors, setErrors] = useState({ name: '', address: '' });
+    // const [showErrors, setShowErrors] = useState(false);
 
-    const addStop = async (e) => {
+    const addStop = (e) => {
         e.preventDefault()
         // sets errors to true after submission
-        setShowErrors(true);
-        if (hasErrors(errors)) return false;
-        try {
-            const validAddress = await getValidAddress(address);
-            onSubmit(name, validAddress);
-            if (clearForm) {
-                setName('');
-                setAddress('');
-                setShowErrors(false);
-            }
-        } catch (err) {
-            // console.log(err);
-            setErrors({ ...errors, address: 'Please enter a valid address!' });
-            return false;
-        }
+        // setShowErrors(true);
+        // if (hasErrors(errors)) return false;
+        // try {
+        //     const validAddress = await getValidAddress(address);
+        //     onSubmit(name, validAddress);
+        //     if (clearForm) {
+        //         setName('');
+        //         setAddress('');
+        //         setShowErrors(false);
+        //     }
+        // } catch (err) {
+        //     // console.log(err);
+        //     setErrors({ ...errors, address: 'Please enter a valid address!' });
+        //     return false;
+        // }
 
         dispatch({
             type: 'ADD_STOP',
             name,
             address
         })
+        setName('');
+        setAddress('');
         // setStops([
         //     ...stops,
         //     { name, address }
@@ -58,13 +60,13 @@ const Form = ({ clearForm = true }) => {
 
     // const { register, handleSubmit, errors } = useForm();
 
-    useEffect(() => {
-		setErrors({
-			name: validateName(name),
-			address: validateAddress(address),
-        });
-        // only run function when name and address changes
-	}, [name, address]);
+    // useEffect(() => {
+	// 	setErrors({
+	// 		name: validateName(name),
+	// 		address: validateAddress(address),
+    //     });
+    //     // only run function when name and address changes
+	// }, [name, address]);
 
     return (
       <div className="container">
@@ -74,14 +76,12 @@ const Form = ({ clearForm = true }) => {
             value={name}
             onChange={e => setName(e.target.value)}
             placeholder="Dunder Mifflin"
-            error={showErrors ? errors.name : ""}
           />
           <label>Stop Address:</label>
           <input
             value={address}
             onChange={e => setAddress(e.target.value)}
             placeholder="1725 Slough Avenue, Scranton, PA"
-            error={showErrors ? errors.address : ""}
           />
           {/* react hook form error message for specific situations, name is required */}
           {/* {errors.stopName && errors.stopName.type === "required" && (<p>Stop Name required!</p>)} */}
@@ -105,28 +105,26 @@ const Form = ({ clearForm = true }) => {
           <SubmitBtn buttonText="Add Stop" />
         </form>
         {stops.map(stop => (
-          <div key={stop.name}>
-            <h3>{stop.name}</h3>
-            <p>{stop.address}</p>
-            <button onClick={() => removeStop(stop.name)}>Remove Stop</button>
-          </div>
+          <section key={stop.name} className="itenerary">
+            <div className="stop-wrapper">
+                <h3>{stop.name}</h3>
+                <p>{stop.address}</p>
+            </div>
+            <button onClick={() => removeStop(stop.name)} className="remove-btn">Remove Stop</button>
+          </section>
         ))}
       </div>
     );
 }
 
 // Validates that a name is entered
-const validateName = (name) => (name.trim() === '' ? 'Stop name required 😎' : '');
-// Validates if there is at least 3 character for address
-const validateAddress = (address) => {
-	if (address.trim() === '') return 'Address required! 🔥 ';
-	else if (address.trim().length < 3) return 'Address must be at least 3 characters long!'; // checks if address is under 3 char's
-	return '';
-};
-const hasErrors = (errors) => {
-	const values = Object.values(errors);
-	return values.some((e) => !!e);
-};
+// const validateName = (name) => (name.trim() === '' ? 'Stop name required 😎' : '');
+// // Validates if there is at least 3 character for address
+// const validateAddress = (address) => {
+// 	if (address.trim() === '') return 'Address required! 🔥 ';
+// 	else if (address.trim().length < 3) return 'Address must be at least 3 characters long!'; // checks if address is under 3 char's
+// 	return '';
+// };
 
 // after a ton of research I decided to use Axios to async and await data from Shipwell's API
 // its sublime, fast and perfect for making rest api calls

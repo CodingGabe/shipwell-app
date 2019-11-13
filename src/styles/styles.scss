@@ -4,6 +4,7 @@ $shipwell_primary: #11A3DD;
 $container: 30rem;
 $bold: 700;
 $border-radius: 5px;
+$danger: #e74c3c;
 
 * {
     margin: 0;
@@ -25,7 +26,7 @@ html {
     .container {
         margin: 0 auto;
         max-width: $container;
-        width: 300px;
+        width: 425px;
         color: $white;
         h1 {
             margin-bottom: 2rem;
@@ -67,4 +68,22 @@ html {
           box-shadow: 0 3px 20px rgba(0,0,0,.27);
           cursor: pointer;
       }
+  }
+
+  .itenerary {
+      margin: 4rem 0;
+      display: flex;
+      justify-content: space-between;
+  }
+
+  .remove-btn {
+      display: inline-block;
+      background: $danger;
+      padding: .5rem;
+      border: none;
+      color: $white;
+      border-radius: 2px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
   }
